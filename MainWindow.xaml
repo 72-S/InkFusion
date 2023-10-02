@@ -1,0 +1,217 @@
+﻿<Window x:Class="InkFusion.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InkFusion"
+        mc:Ignorable="d"
+        Title="InkFusion" Height="720" Width="1280" MinHeight="530" MinWidth="420"
+        WindowState="Normal" WindowStartupLocation="CenterOwner" Background="#FF1E1B1B" Foreground="{x:Null}"
+        >
+    <Window.Resources>
+        <Storyboard x:Key="ShowPopupStoryboard">
+            <DoubleAnimation Storyboard.TargetName="CreateFolderPopup" 
+                             Storyboard.TargetProperty="Opacity" 
+                             From="0" To="1" Duration="0:0:0.02"/>
+            <DoubleAnimation Storyboard.TargetName="OverlayBackground" 
+                             Storyboard.TargetProperty="Opacity" 
+                             From="0" To="0.5" Duration="0:0:0.02"/>
+        </Storyboard>
+        <Storyboard x:Key="HidePopupStoryboard">
+            <DoubleAnimation Storyboard.TargetName="CreateFolderPopup" 
+                             Storyboard.TargetProperty="Opacity" 
+                             From="1" To="0" Duration="0:0:0.02"/>
+            <DoubleAnimation Storyboard.TargetName="OverlayBackground" 
+                             Storyboard.TargetProperty="Opacity" 
+                             From="0.5" To="0" Duration="0:0:0.02"/>
+        </Storyboard>
+        <Storyboard x:Key="BlurInStoryboard">
+            <DoubleAnimation Storyboard.TargetName="BlurEffect" 
+                             Storyboard.TargetProperty="Radius" 
+                             From="0" To="2" Duration="0:0:0.02"/>
+        </Storyboard>
+        <Storyboard x:Key="BlurOutStoryboard">
+            <DoubleAnimation Storyboard.TargetName="BlurEffect" 
+                             Storyboard.TargetProperty="Radius" 
+                             From="2" To="0" Duration="0:0:0.02"/>
+        </Storyboard>
+        <Style x:Key="HoverEffectEllipseStyle" TargetType="{x:Type Ellipse}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.7"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="CustomHyperlinkStyle" TargetType="Hyperlink">
+            <Setter Property="TextDecorations" Value="{x:Null}" />
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Gray"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+    <Grid x:Name="MainGrid">
+        <Grid>
+            <Grid.Effect>
+                <BlurEffect x:Name="BlurEffect" Radius="0"/>
+            </Grid.Effect>
+
+            <Rectangle Height="58" Margin="10,10,10,0" VerticalAlignment="Top" Fill="#FF2C2C2C" RadiusX="11" RadiusY="11"/>
+            <Label Content="InkFusion" Margin="19,12,0,0" RenderTransformOrigin="0.848,-0.116" Background="{x:Null}" Foreground="White" FontSize="36" FontFamily="Rockwell" Height="54" VerticalAlignment="Top" HorizontalAlignment="Left" Width="172"/>
+            <TextBlock x:Name="pathTextBlock" Margin="19,85,16,572" Foreground="White" FontSize="20" FontFamily="Segoe UI Variable Text Semibold" Text="Journals"/>
+            <!-- Button "New Notebook" mit Hover-Effekt -->
+            <Button Height="40" Margin="4,19,16,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="#FF3C3C3C" BorderBrush="Transparent" Cursor="Hand" Click="New_Notebook_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="11">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#FF34A43B" Duration="0:0:0.1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#FF3C3C3C" Duration="0:0:0.1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#088A29"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <StackPanel Orientation="Horizontal" Width="129">
+                    <Image Height="23" Width="33" Source="/new_notebook.png"/>
+                    <Label Content="New Notebook" FontFamily="Segoe UI Variable Text Semibold" Background="{x:Null}" Foreground="White" VerticalAlignment="Center" Height="27" Width="95"/>
+                </StackPanel>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <ToolTip.Template>
+                            <ControlTemplate TargetType="ToolTip">
+                                <Border Background="#2E2E2E" CornerRadius="7" BorderBrush="#1C1C1C" BorderThickness="0.6">
+                                    <TextBlock Text="Create a new Notebook" Foreground="White" Margin="10" FontSize="12"/>
+                                </Border>
+                            </ControlTemplate>
+                        </ToolTip.Template>
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+
+            <!-- Button "New Folder" -->
+            <Button Height="40" Width="40" Margin="0,19,152,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="#FF3C3C3C" BorderBrush="Transparent" Cursor="Hand" Click="New_Folder_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="11">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#FF34A43B" Duration="0:0:0.1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#FF3C3C3C" Duration="0:0:0.1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#088A29"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <Image Height="23" Width="33" Source="/new_folder.png"/>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <ToolTip.Template>
+                            <ControlTemplate TargetType="ToolTip">
+                                <Border Background="#2E2E2E" CornerRadius="7" BorderBrush="#1C1C1C" BorderThickness="0.6">
+                                    <TextBlock Text="Create a new Folder" Foreground="White" Margin="10" FontSize="12"/>
+                                </Border>
+                            </ControlTemplate>
+                        </ToolTip.Template>
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+
+            <!-- Placeholder für "No Notebooks" -->
+            <StackPanel x:Name="NoNotebooksPlaceholder" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+                <Image Source="/images/folder.png" Width="100" Height="100"/>
+                <TextBlock Text="You don't have any Notebooks. Create One!" FontSize="20" Foreground="White" Margin="10" TextAlignment="Center" FontFamily="Segoe UI Variable Text Semibold"/>
+            </StackPanel>
+
+            <ListBox Name="fileListView"  
+                     Margin="10,132,10,10" 
+                     MouseLeftButtonUp="FilelistClick"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                     Background="{x:Null}" 
+                     BorderBrush="{x:Null}" 
+                     Foreground="{x:Null}"
+                     >
+                <ListBox.Resources>
+                    <!-- Übernehmen Sie den benutzerdefinierten ScrollBar-Stil aus Ihrer ResourceDictionary -->
+                    <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource {x:Type ScrollBar}}" />
+
+                    <!-- Stil zum Entfernen der blauen Linie -->
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <ContentPresenter />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Resources>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel IsItemsHost="True" Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <local:FolderControl x:Name="FolderControl">
+                            
+                        </local:FolderControl>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+
+            <Rectangle x:Name="OverlayBackground" 
+                   Fill="#FF171717" 
+                   Opacity="0.1" 
+                   Visibility="Collapsed" 
+                    />
+        </Grid>
+        <!--Create Folder-->
+
+        <local:CreateFolder x:Name="CreateFolder" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
+        <local:EditFolder x:Name="EditFolder" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
+
+
+
+
+    </Grid>
+</Window>

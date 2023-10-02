@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="InkFusion.FolderControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:InkFusion"
+             mc:Ignorable="d" 
+             d:DesignHeight="140" d:DesignWidth="120"
+             >
+
+    <UserControl.Resources>
+
+
+        <!-- Stil für das Kontextmenü -->
+        <Style x:Key="ContextStyle" TargetType="{x:Type ContextMenu}">
+            <Setter Property="Background" Value="#201e1e"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ContextMenu}">
+                        <Border CornerRadius="10" Background="{TemplateBinding Background}">
+                            <StackPanel IsItemsHost="True"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+
+        <!-- Stil für die Menüeinträge -->
+        <Style x:Key="MenuStyle" TargetType="{x:Type MenuItem}">
+            <Setter Property="Background" Value="#3E3B3B"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type MenuItem}">
+                        <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                            <ContentPresenter Content="{TemplateBinding Header}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid x:Name="Main" >
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.Triggers>
+
+
+
+        </Grid.Triggers>
+
+        <Rectangle x:Name="HoverRectangle" RadiusX="6" RadiusY="6" Fill="#1E1B1B" HorizontalAlignment="Center" Width="120" Height="140" VerticalAlignment="Center"/>
+        <Image x:Name="FolderImage" Width="100" Source="{Binding Image}" Margin="10,0,10,40"/>
+        <Grid x:Name="ButtonGrid" Margin="15,105,17,18">
+            <!-- Höhe auf 30 gesetzt -->
+            
+            <TextBlock x:Name="FolderName" Foreground="White" Text="{Binding Name}"  VerticalAlignment="Center" FontSize="14" FontFamily="Segoe UI Variable Text Semibold" Margin="0,-2,0,0" HorizontalAlignment="Center" Width="88" TextTrimming="CharacterEllipsis" TextAlignment="Center"/>
+            <Button x:Name="FolderButton" Click="FolderButton_Click" Cursor="Hand">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid Background="{TemplateBinding Background}">
+                                        <ContentPresenter />
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <!-- Leerer Trigger, um den Standard-MouseOver-Effekt zu überschreiben -->
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <!-- Hintergrund auf Transparent gesetzt -->
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation To="#A9A9A9" Storyboard.TargetName="FolderName" Storyboard.TargetProperty="(Label.Foreground).(SolidColorBrush.Color)" Duration="0:0:0.2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation To="White" Storyboard.TargetName="FolderName" Storyboard.TargetProperty="(Label.Foreground).(SolidColorBrush.Color)" Duration="0:0:0.2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Grid.Triggers>
+        </Grid>
+
+        <Popup x:Name="FolderOptionsPopup" PlacementTarget="{Binding ElementName=FolderButton}" Placement="Center" StaysOpen="False" VerticalOffset="60" AllowsTransparency="True" >
+            <local:FolderOptions />
+        </Popup>
+
+
+
+    </Grid>
+
+</UserControl>
