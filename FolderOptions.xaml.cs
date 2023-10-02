@@ -8,7 +8,7 @@ namespace InkFusion
 {
     public partial class FolderOptions : UserControl
     {
-        private string folderPath;
+        
 
         public FolderControl ParentFolderControl { get; set; }
         
@@ -22,10 +22,19 @@ namespace InkFusion
         {
             FolderControl parentFolderControl = ParentFolderControl;
             parentFolderControl.HidePopup();
-            MainWindow.Instance.Edit_Folder_Click();
-            
 
+            var mainWindow = Window.GetWindow(this) as MainWindow;
+            if (mainWindow != null)
+            {
+                mainWindow.ActiveFolderControl = parentFolderControl;
+            }
+
+            MainWindow.Instance.Edit_Folder_Click();
+            EditFolder editFolder = new EditFolder();
+            editFolder.EditFolder_Loaded();
         }
+
+
 
         private void DeleteFolder(object sender, RoutedEventArgs e)
         {

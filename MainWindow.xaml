@@ -62,7 +62,7 @@
 
             <Rectangle Height="58" Margin="10,10,10,0" VerticalAlignment="Top" Fill="#FF2C2C2C" RadiusX="11" RadiusY="11"/>
             <Label Content="InkFusion" Margin="19,12,0,0" RenderTransformOrigin="0.848,-0.116" Background="{x:Null}" Foreground="White" FontSize="36" FontFamily="Rockwell" Height="54" VerticalAlignment="Top" HorizontalAlignment="Left" Width="172"/>
-            <TextBlock x:Name="pathTextBlock" Margin="19,85,16,572" Foreground="White" FontSize="20" FontFamily="Segoe UI Variable Text Semibold" Text="Journals"/>
+            <TextBlock x:Name="pathTextBlock" Margin="19,85,16,0" Foreground="White" FontSize="20" FontFamily="Segoe UI Variable Text Semibold" Text="Journals" Height="47" VerticalAlignment="Top"/>
             <!-- Button "New Notebook" mit Hover-Effekt -->
             <Button Height="40" Margin="4,19,16,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="#FF3C3C3C" BorderBrush="Transparent" Cursor="Hand" Click="New_Notebook_Click">
                 <Button.Template>
@@ -192,7 +192,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <local:FolderControl x:Name="FolderControl">
-                            
+
                         </local:FolderControl>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:InkFusion"
              mc:Ignorable="d"
-             d:DesignHeight="304" d:DesignWidth="628">
+             d:DesignHeight="304" d:DesignWidth="628"
+             >
 	<Grid x:Name="EditFolderPopup"  HorizontalAlignment="Center" VerticalAlignment="Center">
 		<Rectangle Width="628" Height="304" Fill="#FF2C2C2C" RadiusX="11" RadiusY="11" Stroke="#FF403F3F"/>
 
@@ -20,8 +21,7 @@
                          Foreground="White"
                          Padding="10,0,0,0"
                          FontFamily="Segoe UI Variable Text Semibold"
-                         Text="Enter a name..."
-                         GotFocus="FolderNameTextBox_GotFocus"
+                         Text="test"
                          BorderBrush="{x:Null}"
                          SelectionBrush="{x:Null}"
                          CaretBrush="White" FontSize="14" Margin="10,-1,30,1">
@@ -75,15 +75,15 @@
 				<ColumnDefinition Width="*"/>
 			</Grid.ColumnDefinitions>
 
-			<Ellipse Width="28" Height="28" Fill="#FFB30909" Grid.Column="0" MouseLeftButtonDown="ColorSelected_Red" MouseEnter="Ellipse_MouseEnter" MouseLeave="Ellipse_MouseLeave" Cursor="Hand" />
-			<Ellipse Width="28" Height="28" Fill="Purple" Grid.Column="1" MouseLeftButtonDown="ColorSelected_Purple" MouseEnter="Ellipse_MouseEnter" MouseLeave="Ellipse_MouseLeave" Cursor="Hand" />
-			<Ellipse Width="28" Height="28" Fill="#FF0061FF" Grid.Column="2" MouseLeftButtonDown="ColorSelected_Blue" MouseEnter="Ellipse_MouseEnter" MouseLeave="Ellipse_MouseLeave" Cursor="Hand" />
-			<Ellipse Width="28" Height="28" Fill="HotPink" Grid.Column="3" MouseLeftButtonDown="ColorSelected_Pink" MouseEnter="Ellipse_MouseEnter" MouseLeave="Ellipse_MouseLeave" Cursor="Hand" />
-			<Ellipse Width="28" Height="28" Fill="#388E3C" Grid.Column="4" MouseLeftButtonDown="ColorSelected_Green" MouseEnter="Ellipse_MouseEnter" MouseLeave="Ellipse_MouseLeave" Cursor="Hand" />
-			<Ellipse Width="28" Height="28" Fill="#FBC02D" Grid.Column="5" MouseLeftButtonDown="ColorSelected_Yellow" MouseEnter="Ellipse_MouseEnter" MouseLeave="Ellipse_MouseLeave" Cursor="Hand" />
-			<Ellipse Width="28" Height="28" Fill="MediumSlateBlue" Grid.Column="6" MouseLeftButtonDown="ColorSelected_Violet" MouseEnter="Ellipse_MouseEnter" MouseLeave="Ellipse_MouseLeave" Cursor="Hand" />
-			<Ellipse Width="28" Height="28" Fill="#F57C00" Grid.Column="7" MouseLeftButtonDown="ColorSelected_Orange" MouseEnter="Ellipse_MouseEnter" MouseLeave="Ellipse_MouseLeave" Cursor="Hand" />
-			<Ellipse Width="28" Height="28" Fill="Turquoise" Grid.Column="8" MouseLeftButtonDown="ColorSelected_Cyan" MouseEnter="Ellipse_MouseEnter" MouseLeave="Ellipse_MouseLeave" Cursor="Hand" />
+            <Ellipse x:Name="RedEllipse" Width="28" Height="28" Fill="#FFB30909" Grid.Column="0" MouseLeftButtonDown="ColorSelected_Red" MouseEnter="Ellipse_MouseEnter" MouseLeave="Ellipse_MouseLeave" Cursor="Hand" />
+            <Ellipse x:Name="PurpleEllipse" Width="28" Height="28" Fill="Purple" Grid.Column="1" MouseLeftButtonDown="ColorSelected_Purple" MouseEnter="Ellipse_MouseEnter" MouseLeave="Ellipse_MouseLeave" Cursor="Hand" />
+            <Ellipse x:Name="BlueEllipse" Width="28" Height="28" Fill="#FF0061FF" Grid.Column="2" MouseLeftButtonDown="ColorSelected_Blue" MouseEnter="Ellipse_MouseEnter" MouseLeave="Ellipse_MouseLeave" Cursor="Hand" />
+            <Ellipse x:Name="PinkEllipse" Width="28" Height="28" Fill="HotPink" Grid.Column="3" MouseLeftButtonDown="ColorSelected_Pink" MouseEnter="Ellipse_MouseEnter" MouseLeave="Ellipse_MouseLeave" Cursor="Hand" />
+            <Ellipse x:Name="GreenEllipse" Width="28" Height="28" Fill="#388E3C" Grid.Column="4" MouseLeftButtonDown="ColorSelected_Green" MouseEnter="Ellipse_MouseEnter" MouseLeave="Ellipse_MouseLeave" Cursor="Hand" />
+            <Ellipse x:Name="YellowEllipse" Width="28" Height="28" Fill="#FBC02D" Grid.Column="5" MouseLeftButtonDown="ColorSelected_Yellow" MouseEnter="Ellipse_MouseEnter" MouseLeave="Ellipse_MouseLeave" Cursor="Hand" />
+            <Ellipse x:Name="VioletEllipse" Width="28" Height="28" Fill="MediumSlateBlue" Grid.Column="6" MouseLeftButtonDown="ColorSelected_Violet" MouseEnter="Ellipse_MouseEnter" MouseLeave="Ellipse_MouseLeave" Cursor="Hand" />
+            <Ellipse x:Name="OrangeEllipse" Width="28" Height="28" Fill="#F57C00" Grid.Column="7" MouseLeftButtonDown="ColorSelected_Orange" MouseEnter="Ellipse_MouseEnter" MouseLeave="Ellipse_MouseLeave" Cursor="Hand" />
+            <Ellipse x:Name="CyanEllipse" Width="28" Height="28" Fill="Turquoise" Grid.Column="8" MouseLeftButtonDown="ColorSelected_Cyan" MouseEnter="Ellipse_MouseEnter" MouseLeave="Ellipse_MouseLeave" Cursor="Hand" />
 		</Grid>
 
 

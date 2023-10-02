@@ -60,7 +60,7 @@ namespace InkFusion
             folderOptions.ParentFolderControl = this;
         }
 
-        public void Edit_Folder_OK()
+        public void Edit_Folder_OK(string name, string color)
         {
             Console.WriteLine($"Edit_Folder_OK called. Current value of currentFolderName: {currentFolderName}");
 
@@ -71,8 +71,6 @@ namespace InkFusion
             }
 
             string foldername = currentFolderName;
-            string color = "blue";
-            string name = "test";
             MainWindow.Instance.Edit_Folder(foldername, color, name);
         }
 

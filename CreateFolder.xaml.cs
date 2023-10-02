@@ -24,7 +24,7 @@ namespace InkFusion
     public partial class CreateFolder : UserControl
 
     {
-        private bool isMouseOverEllipse = false;
+        
         private Ellipse selectedEllipse;
         private string selectedColor;
         

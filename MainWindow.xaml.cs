@@ -18,14 +18,14 @@ namespace InkFusion
 {
     public partial class MainWindow : Window
     {
+        
+        public FolderControl ActiveFolderControl { get; set; }
         public static MainWindow Instance { get; private set; }
-        public static string selectedColor;
         public static string currentDirectory;
         private string rootDirectory;
         private string configPath;
         private bool isFolder;
-        private bool isAnimating = false;
-        private double targetOffset = 0;
+        
         public string CurrentDirectory
         {
             get { return currentDirectory; }
@@ -340,7 +340,7 @@ namespace InkFusion
         {
             // Erstelle den neuen Ordnerpfad
             string newFolderPath = Path.Combine(currentDirectory, newFolderName);
-
+            newFolderName = newFolderName.TrimEnd('.');
             // Erstelle den neuen Ordner
             if (!Directory.Exists(newFolderPath))
             {
@@ -380,8 +380,9 @@ namespace InkFusion
 
         public void Edit_Folder(string folderName, string color, string newName)
         {
+            newName = newName.TrimEnd('.');
             string folderPath = Path.Combine(currentDirectory, folderName);
-            string newfolderPath = currentDirectory + newName;
+            string newfolderPath = currentDirectory +"\\"+ newName;
             Console.WriteLine(folderPath, newfolderPath);
             Dictionary<string, FolderInfo> folderConfig;
             if (File.Exists(configPath))
@@ -439,12 +440,27 @@ namespace InkFusion
 
         public void Edit_Folder_Click()
         {
+            if (ActiveFolderControl == null)
+            {
+                Console.WriteLine("Keine FolderControl-Instanz ausgewählt.");
+                return;
+            }
+
+            // Setzen Sie den Status des EditFolder UserControls auf sichtbar
             EditFolder.Visibility = Visibility.Visible;
             OverlayBackground.Visibility = Visibility.Visible;
+
+            // Übergabe der aktuellen Folder-Informationen an das EditFolder UserControl
+            if (ActiveFolderControl.DataContext is FolderInfo folderInfo)
+            {
+                EditFolder.AssociatedFolderInfo = folderInfo;
+            }
         }
+
 
         public void Edit_Folder_Cancel()
         {
+            
             EditFolder.Visibility = Visibility.Collapsed;
             OverlayBackground.Visibility = Visibility.Collapsed;
         }
